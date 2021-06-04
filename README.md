@@ -1,0 +1,1 @@
+# core-escola-digital-mensageria-azure
