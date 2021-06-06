@@ -7,6 +7,12 @@ namespace MED.Aluno.Infrastructure.Data
 {
     public class AlunoDbContext : DbContext
     {
+
+        public AlunoDbContext()
+        {
+
+        }
+
         public AlunoDbContext(DbContextOptions<AlunoDbContext> options) : base(options)
         {
 

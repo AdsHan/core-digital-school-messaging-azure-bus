@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using MED.Aluno.API.Application.DTO;
-using MED.Aluno.Domain;
 using MED.Aluno.Domain.Entities;
+using MED.Aluno.Domain.Repositories;
 using MediatR;
 using System.Collections.Generic;
 using System.Threading;

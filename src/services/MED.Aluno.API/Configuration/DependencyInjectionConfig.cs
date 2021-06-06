@@ -1,5 +1,5 @@
 ﻿using MED.Aluno.API.Application.Messages.Commands.AlunoCommand;
-using MED.Aluno.Domain;
+using MED.Aluno.Domain.Repositories;
 using MED.Aluno.Infrastructure.Data;
 using MED.Aluno.Infrastructure.Data.Repositories;
 using MED.Core.Mediator;

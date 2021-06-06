@@ -1,5 +1,5 @@
-﻿using MED.Aluno.Domain;
-using MED.Aluno.Domain.Entities;
+﻿using MED.Aluno.Domain.Entities;
+using MED.Aluno.Domain.Repositories;
 using MED.Core.Enums;
 using Microsoft.EntityFrameworkCore;
 using System;

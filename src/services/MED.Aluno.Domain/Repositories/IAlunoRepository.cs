@@ -3,7 +3,7 @@ using MED.Core.Data;
 using System;
 using System.Threading.Tasks;
 
-namespace MED.Aluno.Domain
+namespace MED.Aluno.Domain.Repositories
 {
     public interface IAlunoRepository : IRepository<AlunoModel>
     {
