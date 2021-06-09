@@ -1,10 +1,11 @@
 ﻿using MED.Identidade.Domain.Entities;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System.Reflection;
 
 namespace MED.Identidade.Infrastructure.Data
 {
-    public class IdentidadeDbContext : DbContext
+    public class IdentidadeDbContext : IdentityDbContext<UsuarioModel>
     {
 
         public IdentidadeDbContext()
@@ -17,7 +18,7 @@ namespace MED.Identidade.Infrastructure.Data
 
         }
 
-        public DbSet<UsuarioModel> Usuarios { get; set; }
+        public DbSet<TokenModel> Tokens { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

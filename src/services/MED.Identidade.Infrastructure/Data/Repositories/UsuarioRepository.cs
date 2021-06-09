@@ -12,18 +12,18 @@ namespace MED.Identidade.Infrastructure.Data.Repositories
 {
     public class UsuarioRepository : IUsuarioRepository
     {
-        public readonly IdentidadeDbContext _dbContext;
-        public readonly UserManager<UsuarioModel> _userManager;
+        private readonly SignInManager<UsuarioModel> _signInManager;
+        private readonly UserManager<UsuarioModel> _userManager;
 
-        public UsuarioRepository(IdentidadeDbContext dbContext, UserManager<UsuarioModel> userManager)
+        public UsuarioRepository(UserManager<UsuarioModel> userManager, SignInManager<UsuarioModel> signInManager)
         {
-            _dbContext = dbContext;
             _userManager = userManager;
+            _signInManager = signInManager;
         }
 
         public async Task<UsuarioModel> ObterPorUserNameAsync(string userName)
         {
-            return await _dbContext.Usuarios
+            return await _userManager.Users
                 .Where(a => a.Status == EntityStatusEnum.Ativa)
                 .AsNoTracking()
                 .FirstOrDefaultAsync(c => c.UserName == userName);
@@ -31,7 +31,7 @@ namespace MED.Identidade.Infrastructure.Data.Repositories
 
         public async Task<List<UsuarioModel>> ObterTodosAsync()
         {
-            return await _dbContext.Usuarios
+            return await _userManager.Users
                 .Where(a => a.Status == EntityStatusEnum.Ativa)
                 .AsNoTracking()
                 .ToListAsync();
@@ -39,7 +39,7 @@ namespace MED.Identidade.Infrastructure.Data.Repositories
 
         public async Task<UsuarioModel> ObterPorIdAsync(Guid id)
         {
-            return await _dbContext.Usuarios
+            return await _userManager.Users
                 .Where(a => a.Status == EntityStatusEnum.Ativa)
                 .AsNoTracking()
                 .FirstOrDefaultAsync(c => c.Id == id);
@@ -50,6 +50,16 @@ namespace MED.Identidade.Infrastructure.Data.Repositories
             return await _userManager.CreateAsync(usuario, senha);
 
         }
+
+        public async Task<SignInResult> LogarAsync(string usuario, string senha)
+        {
+            return await _signInManager.PasswordSignInAsync(usuario, senha, isPersistent: false, lockoutOnFailure: true);
+        }
+
+        public async Task<SignInResult> VerificaSenhaAsync(UsuarioModel usuario, string senha)
+        {
+            return await _signInManager.CheckPasswordSignInAsync(usuario, senha, lockoutOnFailure: true);
+        }        
 
         public Task SalvarAsync()
         {
@@ -68,7 +78,7 @@ namespace MED.Identidade.Infrastructure.Data.Repositories
 
         public void Dispose()
         {
-            throw new NotImplementedException();
+
         }
     }
 }

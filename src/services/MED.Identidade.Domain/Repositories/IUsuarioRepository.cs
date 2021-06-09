@@ -9,5 +9,7 @@ namespace MED.Identidade.Domain.Repositories
     {
         Task<UsuarioModel> ObterPorUserNameAsync(string userName);
         Task<IdentityResult> CriarAsync(UsuarioModel usiario, string userName);
+        Task<SignInResult> LogarAsync(string usuario, string senha);
+        Task<SignInResult> VerificaSenhaAsync(UsuarioModel usuario, string senha);
     }
 }

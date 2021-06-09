@@ -2,24 +2,24 @@
 using MED.Core.Commands;
 using MED.Core.Communication;
 
-namespace MED.Identidade.API.Application.Messages.Commands.UsuarioCommand
+namespace MED.Identidade.API.Application.Messages.Commands.TokenCommand
 {
 
-    public class AdicionarUsuarioCommand : Command
+    public class AtualizarTokenCommand : Command
     {
         public string Email { get; set; }
         public string Senha { get; set; }
-        public string Telefone { get; set; }
+        public string Token { get; set; }
 
         public override bool Validar()
         {
-            BaseResult.ValidationResult = new AdicionarUsuarioValidation().Validate(this);
+            BaseResult.ValidationResult = new AtualizarTokenValidation().Validate(this);
             return BaseResult.ValidationResult.IsValid;
         }
 
-        public class AdicionarUsuarioValidation : AbstractValidator<AdicionarUsuarioCommand>
+        public class AtualizarTokenValidation : AbstractValidator<AtualizarTokenCommand>
         {
-            public AdicionarUsuarioValidation()
+            public AtualizarTokenValidation()
             {
                 RuleFor(c => c.Email)
                     .NotEmpty()
@@ -28,6 +28,11 @@ namespace MED.Identidade.API.Application.Messages.Commands.UsuarioCommand
                 RuleFor(c => c.Senha)
                     .NotEmpty()
                     .WithMessage("O senha do usuário foi informado");
+
+                RuleFor(c => c.Token)
+                    .NotEmpty()
+                    .WithMessage("O token não foi informado");
+
             }
         }
     }

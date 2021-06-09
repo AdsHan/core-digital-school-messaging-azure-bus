@@ -11,7 +11,8 @@ namespace MED.Aluno.Infrastructure.Data.Repositories
 {
     public class AlunoRepository : IAlunoRepository
     {
-        public readonly AlunoDbContext _dbContext;
+        private readonly AlunoDbContext _dbContext;
+
         public AlunoRepository(AlunoDbContext dbContext)
         {
             _dbContext = dbContext;

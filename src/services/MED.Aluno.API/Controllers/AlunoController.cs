@@ -12,7 +12,7 @@ namespace MED.Aluno.API.Controllers
 {
     [ApiVersion("1.0")]
     [Produces("application/json")]
-    [Route("api/{version:apiVersion}/[controller]")]
+    [Route("api/{version:apiVersion}/aluno")]
     [ApiController]
     public class AlunoController : BaseController
     {
@@ -31,7 +31,7 @@ namespace MED.Aluno.API.Controllers
         /// <returns>Coleção de objetos da classe Aluno</returns>                
         /// <response code="200">Lista dos alunos</response>        
         /// <response code="400">Falha na requisição</response>         
-        /// <response code="404">Nenhum aluno foi localizadoaluno</response>         
+        /// <response code="404">Nenhum aluno foi localizado</response>         
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -126,7 +126,7 @@ namespace MED.Aluno.API.Controllers
         {
             var result = await _mediator.EnviarComando(command);
 
-            return result.ValidationResult.IsValid ? CreatedAtAction("GravaAluno", new { id = result.id }, command) : CustomResponse(result.ValidationResult);
+            return result.ValidationResult.IsValid ? CreatedAtAction("GravaAluno", new { id = result.response }, command) : CustomResponse(result.ValidationResult);
         }
 
         // PUT: api/1.0/aluno/5

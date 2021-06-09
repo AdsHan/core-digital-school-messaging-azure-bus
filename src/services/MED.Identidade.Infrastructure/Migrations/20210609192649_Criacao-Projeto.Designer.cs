@@ -4,14 +4,16 @@ using MED.Identidade.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace MED.Identidade.Infrastructure.Migrations
 {
     [DbContext(typeof(IdentidadeDbContext))]
-    partial class IdentidadeDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210609192649_Criacao-Projeto")]
+    partial class CriacaoProjeto
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

@@ -55,7 +55,7 @@ namespace MED.Aluno.API.Application.Messages.Commands.AlunoCommand
 
             await _alunoRepository.SalvarAsync();
 
-            BaseResult.id = aluno.Id;
+            BaseResult.response = aluno.Id;
 
             return BaseResult;
         }

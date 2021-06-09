@@ -5,21 +5,20 @@ using MED.Core.Communication;
 namespace MED.Identidade.API.Application.Messages.Commands.UsuarioCommand
 {
 
-    public class AdicionarUsuarioCommand : Command
+    public class AutenticarUsuarioCommand : Command
     {
         public string Email { get; set; }
         public string Senha { get; set; }
-        public string Telefone { get; set; }
 
         public override bool Validar()
         {
-            BaseResult.ValidationResult = new AdicionarUsuarioValidation().Validate(this);
+            BaseResult.ValidationResult = new AutenticarUsuarioValidation().Validate(this);
             return BaseResult.ValidationResult.IsValid;
         }
 
-        public class AdicionarUsuarioValidation : AbstractValidator<AdicionarUsuarioCommand>
+        public class AutenticarUsuarioValidation : AbstractValidator<AutenticarUsuarioCommand>
         {
-            public AdicionarUsuarioValidation()
+            public AutenticarUsuarioValidation()
             {
                 RuleFor(c => c.Email)
                     .NotEmpty()

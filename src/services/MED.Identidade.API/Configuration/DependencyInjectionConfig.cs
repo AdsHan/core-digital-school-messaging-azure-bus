@@ -1,7 +1,12 @@
 ﻿
 using MED.Core.Extensions;
+using MED.Core.Mediator;
+using MED.Identidade.API.Application.Messages.Commands.UsuarioCommand;
 using MED.Identidade.Domain.Entities;
+using MED.Identidade.Domain.Repositories;
 using MED.Identidade.Infrastructure.Data;
+using MED.Identidade.Infrastructure.Data.Repositories;
+using MediatR;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -35,13 +40,14 @@ namespace MED.Identidade.API.Configuration
             // Usando com banco de dados em memória
             //services.AddDbContext<AlunoDbContext>(options => options.UseInMemoryDatabase("MinhaEscolaDigitalMonolito"));
 
-            //services.AddScoped<IAlunoRepository, AlunoRepository>();
+            services.AddScoped<IUsuarioRepository, UsuarioRepository>();
+            services.AddScoped<ITokenRepository, TokenRepository>();
 
-            //services.AddScoped<IMediatorHandler, MediatorHandler>();
+            services.AddScoped<IMediatorHandler, MediatorHandler>();
 
             // services.AddScoped<IRequestHandler<AdicionarAlunoCommand, ValidationResult>, AlunoCommandHandler>();
             // services.AddScoped<IRequestHandler<AlterarEnderecoAlunoCommand, ValidationResult>, AlunoCommandHandler>();
-            //services.AddMediatR(typeof(AdicionarAlunoCommand));
+            services.AddMediatR(typeof(AdicionarUsuarioCommand));
         }
     }
 }
