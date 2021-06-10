@@ -3,6 +3,7 @@ using MED.Aluno.Domain.Repositories;
 using MED.Aluno.Infrastructure.Data;
 using MED.Aluno.Infrastructure.Data.Repositories;
 using MED.Core.Mediator;
+using MED.Core.MessageBus;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -16,13 +17,15 @@ namespace MED.Aluno.API.Configuration
         {
 
             // Usando com SqlServer
-            services.AddDbContext<AlunoDbContext>(options => options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
+            services.AddDbContext<AlunoDbContext>(options => options.UseSqlServer(configuration.GetConnectionString("SQLServerCs")));
             // Usando com banco de dados em memória
             //services.AddDbContext<AlunoDbContext>(options => options.UseInMemoryDatabase("MinhaEscolaDigitalMonolito"));
 
             services.AddScoped<IAlunoRepository, AlunoRepository>();
 
             services.AddScoped<IMediatorHandler, MediatorHandler>();
+
+            services.AddScoped<IMessageBusHandler, MessageBusHandler>();
 
             // services.AddScoped<IRequestHandler<AdicionarAlunoCommand, ValidationResult>, AlunoCommandHandler>();
             // services.AddScoped<IRequestHandler<AlterarEnderecoAlunoCommand, ValidationResult>, AlunoCommandHandler>();

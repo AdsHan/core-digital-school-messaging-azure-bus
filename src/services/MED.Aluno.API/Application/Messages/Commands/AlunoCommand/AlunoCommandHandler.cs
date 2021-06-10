@@ -2,6 +2,8 @@
 using MED.Aluno.Domain.Repositories;
 using MED.Core.Commands;
 using MED.Core.Communication;
+using MED.Core.MessageBus;
+using MED.Core.Messages.Integration;
 using MediatR;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,10 +19,12 @@ namespace MED.Aluno.API.Application.Messages.Commands.AlunoCommand
         IRequestHandler<AlterarEnderecoAlunoCommand, BaseResult>
     {
         private readonly IAlunoRepository _alunoRepository;
+        private readonly IMessageBusHandler _messageBusHandler;
 
-        public AlunoCommandHandler(IAlunoRepository alunoRepository)
+        public AlunoCommandHandler(IAlunoRepository alunoRepository, IMessageBusHandler messageBusHandler)
         {
             _alunoRepository = alunoRepository;
+            _messageBusHandler = messageBusHandler;
         }
 
         public async Task<BaseResult> Handle(AdicionarAlunoCommand command, CancellationToken cancellationToken)
@@ -54,6 +58,15 @@ namespace MED.Aluno.API.Application.Messages.Commands.AlunoCommand
             _alunoRepository.Adicionar(aluno);
 
             await _alunoRepository.SalvarAsync();
+
+
+            // Envia as mensagens para criar os usuários para os responsáveis
+            foreach (var item in responsaveis)
+            {
+                var responsavelRegistrado = new RegistarUsuarioResponsavelIntegrationEvent(item.Email.Endereco, "123456", item.Telefone.Numero);
+
+                await _messageBusHandler.EnviarMenssagem("novo-usuario", responsavelRegistrado);
+            }
 
             BaseResult.response = aluno.Id;
 

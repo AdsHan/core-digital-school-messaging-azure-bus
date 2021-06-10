@@ -1,12 +1,15 @@
 ﻿
 using MED.Core.Extensions;
 using MED.Core.Mediator;
+using MED.Core.MessageBus;
 using MED.Identidade.API.Application.Messages.Commands.UsuarioCommand;
+using MED.Identidade.API.Application.Messages.ConsumersBus;
 using MED.Identidade.Domain.Entities;
 using MED.Identidade.Domain.Repositories;
 using MED.Identidade.Infrastructure.Data;
 using MED.Identidade.Infrastructure.Data.Repositories;
 using MediatR;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -19,8 +22,10 @@ namespace MED.Identidade.API.Configuration
         public static void AddDependencyConfiguration(this IServiceCollection services, IConfiguration configuration)
         {
 
+            // Usando com banco de dados em memória
+            //services.AddDbContext<IdentidadeDbContext>(options => options.UseInMemoryDatabase("MinhaEscolaDigitalMonolito"));
             // Usando com SqlServer
-            services.AddDbContext<IdentidadeDbContext>(options => options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
+            services.AddDbContext<IdentidadeDbContext>(options => options.UseSqlServer(configuration.GetConnectionString("SQLServerCs")));
 
             services.AddIdentity<UsuarioModel, IdentityRole>(options =>
                 {
@@ -37,17 +42,27 @@ namespace MED.Identidade.API.Configuration
                 .AddEntityFrameworkStores<IdentidadeDbContext>()
                 .AddDefaultTokenProviders();
 
-            // Usando com banco de dados em memória
-            //services.AddDbContext<AlunoDbContext>(options => options.UseInMemoryDatabase("MinhaEscolaDigitalMonolito"));
-
             services.AddScoped<IUsuarioRepository, UsuarioRepository>();
             services.AddScoped<ITokenRepository, TokenRepository>();
 
             services.AddScoped<IMediatorHandler, MediatorHandler>();
 
-            // services.AddScoped<IRequestHandler<AdicionarAlunoCommand, ValidationResult>, AlunoCommandHandler>();
-            // services.AddScoped<IRequestHandler<AlterarEnderecoAlunoCommand, ValidationResult>, AlunoCommandHandler>();
+            services.AddScoped<IMessageBusHandler, MessageBusHandler>();
+
+            services.AddSingleton<IRegistarUsuarioResponsavelConsumer, RegistarUsuarioResponsavelConsumer>();
+
             services.AddMediatR(typeof(AdicionarUsuarioCommand));
         }
+
+        public static IApplicationBuilder UseDependencyConfiguration(this IApplicationBuilder app)
+        {
+
+            // Registra o serviço
+            var bus = app.ApplicationServices.GetRequiredService<IRegistarUsuarioResponsavelConsumer>();
+            bus.RegistrarConsumer();
+
+            return app;
+        }
+
     }
 }

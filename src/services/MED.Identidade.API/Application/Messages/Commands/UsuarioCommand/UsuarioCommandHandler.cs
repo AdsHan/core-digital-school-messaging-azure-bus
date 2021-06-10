@@ -61,7 +61,7 @@ namespace MED.Identidade.API.Application.Messages.Commands.UsuarioCommand
         {
             if (!command.Validar()) return command.BaseResult;
 
-            var usuarioExistente= await _usuarioRepository.ObterPorUserNameAsync(command.Email);
+            var usuarioExistente = await _usuarioRepository.ObterPorUserNameAsync(command.Email);
 
             if (usuarioExistente == null)
             {

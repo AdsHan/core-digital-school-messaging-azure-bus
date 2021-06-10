@@ -32,6 +32,8 @@ namespace MED.Identidade.API
         {
             app.UseApiConfiguration(env);
 
+            app.UseDependencyConfiguration();
+
             app.UseSwaggerConfiguration();
 
         }

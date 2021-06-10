@@ -1,9 +1,8 @@
-﻿using MediatR;
-using System;
+﻿using System;
 
-namespace MED.Core.Messages
+namespace MED.Core.MessageBus
 {
-    public class Event : INotification
+    public class Event
     {
         public DateTime Timestamp { get; private set; }
 

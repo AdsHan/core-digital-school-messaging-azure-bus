@@ -54,4 +54,4 @@ namespace MED.Identidade.API.Application.Messages.Commands.TokenCommand
 
         }
     }
-    }
+}

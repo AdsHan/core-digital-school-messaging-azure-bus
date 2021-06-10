@@ -59,7 +59,7 @@ namespace MED.Identidade.Infrastructure.Data.Repositories
         public async Task<SignInResult> VerificaSenhaAsync(UsuarioModel usuario, string senha)
         {
             return await _signInManager.CheckPasswordSignInAsync(usuario, senha, lockoutOnFailure: true);
-        }        
+        }
 
         public Task SalvarAsync()
         {
