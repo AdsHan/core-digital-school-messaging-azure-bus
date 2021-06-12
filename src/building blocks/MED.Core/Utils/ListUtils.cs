@@ -7,10 +7,9 @@ namespace MED.Core.Utils
     {
         public static bool isEmpty(object list)
         {
+            List<object> listObject = ((IEnumerable<object>)list).ToList();
 
-            List<object> listO = ((IEnumerable<object>)list).ToList();
-
-            return listO.Count == 0;
+            return listObject.Count == 0;
 
         }
     }

@@ -5,17 +5,17 @@ namespace MED.Core.DomainObjects
     public class Cpf
     {
         public const int CpfMaxLength = 11;
-        public string Numero { get; private set; }
+        public string Number { get; private set; }
 
-        public Cpf(string numero)
+        public Cpf(string number)
         {
-            if (!Validar(numero)) throw new DomainException("CPF inválido");
-            Numero = numero;
+            if (!Validate(number)) throw new DomainException("CPF inválido");
+            Number = number;
         }
 
-        public static bool Validar(string cpf)
+        public static bool Validate(string cpf)
         {
-            cpf = cpf.ApenasNumeros(cpf);
+            cpf = cpf.JustNumbers(cpf);
 
             if (cpf.Length > 11)
                 return false;
@@ -66,9 +66,9 @@ namespace MED.Core.DomainObjects
 
             return true;
         }
-        public void Atualizar(string numero)
+        public void Update(string number)
         {
-            Numero = numero;
+            Number = number;
         }
 
     }

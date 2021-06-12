@@ -13,7 +13,7 @@ namespace MED.Core.Commands
 
         public BaseResult BaseResult { get; set; }
 
-        public virtual bool Validar()
+        public virtual bool Validate()
         {
             throw new NotImplementedException();
         }

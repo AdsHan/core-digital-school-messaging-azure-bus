@@ -19,12 +19,12 @@ namespace MED.Core.Mediator
             _mediator = mediator;
         }
 
-        public async Task<BaseResult> EnviarComando<T>(T comando) where T : Command
+        public async Task<BaseResult> SendCommand<T>(T command) where T : Command
         {
-            return await _mediator.Send(comando);
+            return await _mediator.Send(command);
         }
 
-        public async Task<object> EnviarQuery<T>(T query)
+        public async Task<object> SendQuery<T>(T query)
         {
             return await _mediator.Send(query);
         }

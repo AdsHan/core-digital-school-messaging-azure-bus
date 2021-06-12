@@ -15,7 +15,7 @@ namespace MED.Core.MessageBus
             _connectionString = configuration.GetConnectionString("AzureServiceBusCs");
         }
 
-        public async Task EnviarMenssagem(string queue, Event integration)
+        public async Task SendMessage(string queue, Event integration)
         {
 
             // Cria mensagem e envia para fila 

@@ -12,9 +12,9 @@ namespace MED.Core.Commands
             BaseResult = new BaseResult();
         }
 
-        protected void AdicionarErro(string mensagem)
+        protected void AddError(string message)
         {
-            BaseResult.ValidationResult.Errors.Add(new ValidationFailure(string.Empty, mensagem));
+            BaseResult.ValidationResult.Errors.Add(new ValidationFailure(string.Empty, message));
         }
 
     }

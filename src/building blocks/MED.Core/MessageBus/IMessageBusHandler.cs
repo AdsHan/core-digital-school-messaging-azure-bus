@@ -4,6 +4,6 @@ namespace MED.Core.MessageBus
 {
     public interface IMessageBusHandler
     {
-        Task EnviarMenssagem(string queue, Event integration);
+        Task SendMessage(string queue, Event integration);
     }
 }

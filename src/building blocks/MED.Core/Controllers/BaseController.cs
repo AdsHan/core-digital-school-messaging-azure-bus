@@ -9,39 +9,39 @@ namespace MED.Core.Controllers
     [ApiController]
     public abstract class BaseController : ControllerBase
     {
-        protected List<string> Erros = new List<string>();
+        protected List<string> Errors = new List<string>();
 
         protected ActionResult CustomResponse(object result = null)
         {
-            if (OperacaoValida())
+            if (ValidateOperation())
             {
                 return Ok(result);
             }
 
             return BadRequest(new ValidationProblemDetails(new Dictionary<string, string[]>
             {
-                { "Mensagens", Erros.ToArray() }
+                { "Messages", Errors.ToArray() }
             }));
         }
 
         protected ActionResult CustomResponse(ValidationResult validationResult)
         {
-            foreach (var erro in validationResult.Errors)
+            foreach (var error in validationResult.Errors)
             {
-                AdicionarErroProcessamento(erro.ErrorMessage);
+                AddProcessingError(error.ErrorMessage);
             }
 
             return CustomResponse();
         }
 
-        protected bool OperacaoValida()
+        protected bool ValidateOperation()
         {
-            return !Erros.Any();
+            return !Errors.Any();
         }
 
-        protected void AdicionarErroProcessamento(string erro)
+        protected void AddProcessingError(string error)
         {
-            Erros.Add(erro);
+            Errors.Add(error);
         }
     }
 }

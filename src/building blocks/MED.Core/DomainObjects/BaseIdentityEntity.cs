@@ -7,12 +7,12 @@ namespace MED.Core.DomainObjects
     public abstract class BaseIdentityEntity : IdentityUser
     {
         public Guid Id { get; set; }
-        public DateTime DataInclusao { get; private set; }
+        public DateTime DateCreateAt { get; private set; }
         public EntityStatusEnum Status { get; set; }
 
         protected BaseIdentityEntity()
         {
-            DataInclusao = DateTime.Now;
+            DateCreateAt = DateTime.Now;
             Status = EntityStatusEnum.Ativa;
         }
 

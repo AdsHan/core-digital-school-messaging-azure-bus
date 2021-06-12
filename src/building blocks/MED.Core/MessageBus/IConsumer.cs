@@ -2,6 +2,6 @@
 {
     public interface IConsumer
     {
-        void RegistrarConsumer();
+        void RegisterConsumer();
     }
 }

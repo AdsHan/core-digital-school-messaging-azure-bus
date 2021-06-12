@@ -6,7 +6,7 @@ namespace MED.Core.Mediator
 {
     public interface IMediatorHandler
     {
-        Task<BaseResult> EnviarComando<T>(T comando) where T : Command;
-        Task<object> EnviarQuery<T>(T query);
+        Task<BaseResult> SendCommand<T>(T command) where T : Command;
+        Task<object> SendQuery<T>(T query);
     }
 }
