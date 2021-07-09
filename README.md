@@ -24,7 +24,8 @@ Cenário: Aplicativo que envia um resumo diário para os pais/guardiões do dia 
 # Como executar:
 - Clonar / baixar o repositório em seu workplace.
 - Baixar o .Net Core SDK e o Visual Studio / Code mais recentes.
-- Atualizar as connection strings do SQLServer e do Azure Service Bus
+- Atualizar as connection strings do SQLServer e do Azure Service Bus.
+- Nas configurações da API, ajustar o PATH do XML do Swagger.
 
 # TODO
 - Desenvolver os demais controllers.
